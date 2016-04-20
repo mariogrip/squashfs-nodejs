@@ -1,11 +1,19 @@
 {
   "name": "squashfs-nodejs",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "squashfs for nodejs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Marius Gripsgard <mariogrip@ubuntu.com> (http://mariogrip.com)",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariogrip/squashfs-nodejs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mariogrip/squashfs-nodejs/issues"
+  },
+  "homepage": "https://github.com/mariogrip/squashfs-nodejs#readme"
 }

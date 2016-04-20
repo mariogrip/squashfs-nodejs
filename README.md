@@ -1,7 +1,7 @@
 # squashfs-nodejs
 squashfs for nodejs
 
-NOTE: v1.0.0 only supports unsquashfs
+NOTE: v1.0.x only supports unsquashfs
 
 ## Install
 
