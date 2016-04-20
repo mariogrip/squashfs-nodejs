@@ -4,6 +4,7 @@
   "description": "squashfs for nodejs",
   "main": "index.js",
   "scripts": {
+    "install": "cd lib/squashfs-tools && make",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Marius Gripsgard <mariogrip@ubuntu.com> (http://mariogrip.com)",
