@@ -4,7 +4,7 @@
   "description": "squashfs for nodejs",
   "main": "index.js",
   "scripts": {
-    "install": "cd lib/squashfs-tools && make",
+    "install": "cd lib/squashfs-nodejs && node-gyp rebuild",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Marius Gripsgard <mariogrip@ubuntu.com> (http://mariogrip.com)",
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/mariogrip/squashfs-nodejs/issues"
   },
-  "homepage": "https://github.com/mariogrip/squashfs-nodejs#readme"
+  "homepage": "https://github.com/mariogrip/squashfs-nodejs#readme",
+  "dependencies": {
+    "nan": "^2.2.1"
+  }
 }

@@ -38,3 +38,8 @@ jspm_packages
 
 *.snap
 
+*~
+
+test/
+
+lib/squashfs-nodejs/build/

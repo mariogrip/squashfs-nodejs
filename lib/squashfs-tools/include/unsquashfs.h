@@ -246,6 +246,8 @@ extern void enable_progress_bar();
 extern void disable_progress_bar();
 extern void dump_queue(struct queue *);
 extern void dump_cache(struct cache *);
+extern int argv_unsquashfs(int, char *[]);
+extern int toDir_unsquashfs(char *, char *);
 
 /* unsquash-1.c */
 extern void read_block_list_1(unsigned int *, char *, int);
