@@ -29,7 +29,7 @@
         "target_name": "squashfs",
         "sources": ["squashfs.cpp"],
         "include_dirs": [
-            "<!(nodejs -e \"require('nan')\")",
+            "<!(node -e \"require('nan')\")",
             "../squashfs-tools/include",
         ],
         "dependencies": [
