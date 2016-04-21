@@ -26,7 +26,7 @@ GZIP_SUPPORT = 1
 # To build using XZ Utils liblzma - install the library and uncomment
 # the XZ_SUPPORT line below.
 #
-#XZ_SUPPORT = 1
+XZ_SUPPORT = 1
 
 
 ############ Building LZO support ##############
