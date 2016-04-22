@@ -21,9 +21,9 @@ void unsquashfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   std::string file = std::string(*(v8::String::Utf8Value) info[0]->ToString());
   std::string dest = std::string(*(v8::String::Utf8Value) info[1]->ToString());
 
-  toDir_unsquashfs((char*)file.c_str(), (char*)dest.c_str());
+  int err = toDir_unsquashfs((char*)file.c_str(), (char*)dest.c_str());
 
-  info.GetReturnValue().Set(Nan::True());
+  info.GetReturnValue().Set(Nan::New(err));
 }
 
 void Init(v8::Local<v8::Object> exports) {

@@ -6,7 +6,6 @@ NOTE: v1.0.x only supports unsquashfs
 ## Install
 
 ```
-sudo apt update && sudo apt install squashfs-tools
 npm install squashfs-nodejs
 ```
 
@@ -18,7 +17,17 @@ squashfs.unsquashfs([Squashfs File], [Output directory], [callback])
 ```
 var squashfs = require("squashfs-nodejs");
 
-squashfs.unsquashfs("mySquashfsFile", "/my/ourput/directory", function(metadata){
- console.log("success");
+squashfs.unsquashfs("mySquashfsFile", "/my/ourput/directory", function(err, errcode){
+  if (!err){
+    console.log("success");
+  }
 })
 ```
+
+### error codes:
+
+ERROR.NOT_EXISTING
+ERROR.CANNOT_READ
+ERROR.OUTPUT_DIR_EXISTS
+ERROR.NOT_ENOUGH_ARGS
+ERROR.UNKNOWN

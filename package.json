@@ -1,11 +1,11 @@
 {
   "name": "squashfs-nodejs",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "squashfs for nodejs",
   "main": "index.js",
   "scripts": {
     "install": "cd lib/squashfs-nodejs && node-gyp rebuild",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Marius Gripsgard <mariogrip@ubuntu.com> (http://mariogrip.com)",
   "license": "ISC",
@@ -19,5 +19,8 @@
   "homepage": "https://github.com/mariogrip/squashfs-nodejs#readme",
   "dependencies": {
     "nan": "^2.2.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0"
   }
 }

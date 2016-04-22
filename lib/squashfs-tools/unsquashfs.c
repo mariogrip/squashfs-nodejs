@@ -2495,6 +2495,10 @@ int parse_number(char *arg, int *res)
 		"\n");\
 	printf("GNU General Public License for more details.\n");
 
+int err(char *err){
+	printf("%s\n", err);
+	return 1;
+}
 
 int toDir_unsquashfs(char *file, char *dest)
 {
@@ -2515,21 +2519,21 @@ int toDir_unsquashfs(char *file, char *dest)
 
 
 	if((fd = open(file, O_RDONLY)) == -1) {
-		ERROR("Could not open %s, because %s\n", file,
+		printf("Could not open %s, because %s\n", file,
 			strerror(errno));
-		exit(1);
+			return 1;
 	}
 
 	if(read_super(file) == FALSE)
-		exit(1);
+		return 1;
 
 	if(stat_sys) {
 		squashfs_stat(file);
-		exit(0);
+		return 1;
 	}
 
 	if(!check_compression(comp))
-		exit(1);
+		return 1;
 
 	block_size = sBlk.s.block_size;
 	block_log = sBlk.s.block_log;
@@ -2541,14 +2545,14 @@ int toDir_unsquashfs(char *file, char *dest)
 	 */
 	if(block_size > SQUASHFS_FILE_MAX_SIZE ||
 					block_log > SQUASHFS_FILE_MAX_LOG)
-		EXIT_UNSQUASH("Block size or block_log too large."
+		return err("Block size or block_log too large."
 			"  File system is corrupt.\n");
 
 	/*
 	 * Check block_size and block_log match
 	 */
 	if(block_size != (1 << block_log))
-		EXIT_UNSQUASH("Block size and block_log do not match."
+		return err("Block size and block_log do not match."
 			"  File system is corrupt.\n");
 
 	/*
@@ -2559,12 +2563,12 @@ int toDir_unsquashfs(char *file, char *dest)
 	 * overflow a signed int
 	 */
 	if(shift_overflow(fragment_buffer_size, 20 - block_log))
-		EXIT_UNSQUASH("Fragment queue size is too large\n");
+		return err("Fragment queue size is too large\n");
 	else
 		fragment_buffer_size <<= 20 - block_log;
 
 	if(shift_overflow(data_buffer_size, 20 - block_log))
-		EXIT_UNSQUASH("Data queue size is too large\n");
+		return err("Data queue size is too large\n");
 	else
 		data_buffer_size <<= 20 - block_log;
 
@@ -2572,41 +2576,41 @@ int toDir_unsquashfs(char *file, char *dest)
 
 	fragment_data = malloc(block_size);
 	if(fragment_data == NULL)
-		EXIT_UNSQUASH("failed to allocate fragment_data\n");
+		return err("failed to allocate fragment_data\n");
 
 	file_data = malloc(block_size);
 	if(file_data == NULL)
-		EXIT_UNSQUASH("failed to allocate file_data");
+		return err("failed to allocate file_data");
 
 	data = malloc(block_size);
 	if(data == NULL)
-		EXIT_UNSQUASH("failed to allocate data\n");
+		return err("failed to allocate data\n");
 
 	created_inode = malloc(sBlk.s.inodes * sizeof(char *));
 	if(created_inode == NULL)
-		EXIT_UNSQUASH("failed to allocate created_inode\n");
+		return err("failed to allocate created_inode\n");
 
 	memset(created_inode, 0, sBlk.s.inodes * sizeof(char *));
 
 	if(s_ops.read_uids_guids() == FALSE)
-		EXIT_UNSQUASH("failed to uid/gid table\n");
+		return err("failed to uid/gid table\n");
 
 	if(s_ops.read_fragment_table(&directory_table_end) == FALSE)
-		EXIT_UNSQUASH("failed to read fragment table\n");
+		return err("failed to read fragment table\n");
 
 	if(read_inode_table(sBlk.s.inode_table_start,
 				sBlk.s.directory_table_start) == FALSE)
-		EXIT_UNSQUASH("failed to read inode table\n");
+		return err("failed to read inode table\n");
 
 	if(read_directory_table(sBlk.s.directory_table_start,
 				directory_table_end) == FALSE)
-		EXIT_UNSQUASH("failed to read directory table\n");
+		return err("failed to read directory table\n");
 
 	if(no_xattrs)
 		sBlk.s.xattr_id_table_start = SQUASHFS_INVALID_BLK;
 
 	if(read_xattrs_from_disk(fd, &sBlk.s) == 0)
-		EXIT_UNSQUASH("failed to read the xattr table\n");
+		return err("failed to read the xattr table\n");
 
 	if(path) {
 		paths = init_subdir();
